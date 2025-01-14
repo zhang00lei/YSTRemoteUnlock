@@ -8,7 +8,7 @@
 然后双击启动RemoteUnlockServer.exe即可。
 ## 客户端  
 在卸载完成的机器中，解压[亿赛通解锁.zip](https://github.com/zhang00lei/YSTRemoteUnlock/releases/tag/1.0.0)，双击安装RemoteUnlock.exe，完成后在安装位置修改conf/app.ini文件，修改对应的服务端信息
-![alt text](image-1.png)即可。
+![alt text](image-1.png)
 ## 使用
 在客户端，选中文件或目录，右键RemoteUnlock即可完成解密。
 
