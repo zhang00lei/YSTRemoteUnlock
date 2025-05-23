@@ -14,9 +14,9 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName=D:\Program Files\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputBaseFilename=RemoteUnlock
+OutputBaseFilename=RemoteUnlockClient
 Compression=lzma
 SolidCompression=yes
 
