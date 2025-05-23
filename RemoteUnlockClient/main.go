@@ -4,11 +4,13 @@ import (
 	"RemoteUnlockClient/src/setting"
 	"RemoteUnlockClient/src/util"
 	"bytes"
+	_ "embed"
 	"fmt"
 	"github.com/briandowns/spinner"
 	"github.com/bytedance/gopkg/util/gopool"
 	"github.com/duke-git/lancet/v2/fileutil"
 	"github.com/gen2brain/beeep"
+	"github.com/getlantern/systray"
 	"github.com/schollz/progressbar/v3"
 	"io"
 	"io/fs"
@@ -22,7 +24,15 @@ import (
 	"time"
 )
 
+//go:embed assets/logo.ico
+var logoData []byte
 var wg sync.WaitGroup
+
+func onReady() {
+	systray.SetIcon(logoData)
+}
+
+func onExit() {}
 
 func main() {
 	//if src.IS_EDITOR {
@@ -54,6 +64,9 @@ func main() {
 		bar := progressbar.Default(int64(len(needFile)))
 		unlockCount := 0
 		poolTemp := gopool.NewPool("Unlock", 200, gopool.NewConfig())
+		if len(needFile) > 0 {
+			go systray.Run(onReady, onExit)
+		}
 		for _, filePath := range needFile {
 			wg.Add(1)
 			temp := filePath
@@ -73,9 +86,10 @@ func main() {
 		if !util.FileIsLocked(pathTemp) {
 			return
 		}
-
+		go systray.Run(onReady, onExit)
 		uploadFile(pathTemp, url)
 	}
+	fmt.Println("准备退出")
 }
 
 func uploadFile(filename string, targetURL string) {
